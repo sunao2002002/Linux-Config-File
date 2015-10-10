@@ -37,4 +37,3 @@ set nobackup
 :let Tlist_Use_Right_Window=0
 :let Tlist_Auto_Open=1
 
-::
