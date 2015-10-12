@@ -1,4 +1,4 @@
-
+:before stash
 set nocompatible
 set ignorecase
 set history=50
