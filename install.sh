@@ -5,7 +5,7 @@ function mybackup(){
     cp $1 $1_bak
 }
 if [ "$PLATFORM" = "Darwin" -or "$PLATFORM" = "Linux" ];then
-    echo "install on Mac OS" 
+    echo "install on $PLATFORM" 
     mybackup ~/.vimrc
     cp ./bashrc ~/.bashrc
     cp ./bash_profile ~/.bash_profile
