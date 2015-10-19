@@ -1,5 +1,3 @@
-:before stash
-:branch-1.0
 set nocompatible
 set ignorecase
 set history=50
