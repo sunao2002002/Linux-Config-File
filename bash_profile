@@ -12,7 +12,7 @@ mcd(){
 backup(){
 	cp "$1"{,.bak};
 }
- alias rcp='scp'
+alias rcp='scp'
 alias xargs='xargs -I{}'
 alias ll='ls -lh'
 
