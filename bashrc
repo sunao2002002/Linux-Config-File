@@ -232,7 +232,7 @@ function untar(){
         echo "'$1' is not a valid file"
     fi
 }
-function rm_big_fold(){
+function rmbigfold(){
 	mkdir /tmp/blank
 	rsync --delete-before -a -H -v --progress --stats /tmp/blank/ $1
 	rm -rvf $1
