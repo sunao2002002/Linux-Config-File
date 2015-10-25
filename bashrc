@@ -118,6 +118,8 @@ alias his='history'
 alias hisgrep='history |grep'
 alias rename='mv '
 alias aptinstall='sudo apt-get install'
+alias mirror_site='wget -r -p -np -k'
+alias websiteget='wget --random-wait -r -p -e robots=off -U mozilla'
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
