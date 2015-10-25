@@ -239,3 +239,5 @@ function rmbigfold(){
 	rsync --delete-before -a -H -v --progress --stats /tmp/blank/ $1
 	rm -rvf $1
 }
+ export LC_ALL=en_US.UTF-8
+ export LANG=en_US.UTF-8
