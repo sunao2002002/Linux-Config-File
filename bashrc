@@ -96,7 +96,6 @@ alias unix2dos='todos'
 alias tailf='tail -f'
 alias hexdump='hexdump -C'
 alias cls='clear'
-alias subl='/home/sunao/Sublime/sublime_text'
 alias myfgrep='find . -name .svn -prune -o -type f  | xargs grep -i -E --color -n'
 alias listmodule='find . -name .svn -prune -o -type f -name Android.mk | xargs grep -E --color -n LOCAL_MODULE[^_] -i'
 alias findmodule='find . -name .svn -prune -o -type f -name Android.mk | xargs grep -E --color -n  -i'
@@ -136,8 +135,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-export ARM_COMPILE="ARCH=arm CROSS_COMPILE=/home/sunao/bin/arm-linux-gnueabihf/bin/arm-linux-gnueabihf-"
-export ARM64_COMPILE="ARCH=arm64 CROSS_COMPILE=/home/sunao/bin/aarch64-linux-gnu/bin/aarch64-linux-gnu-"
 
 function swapfile()
 {
