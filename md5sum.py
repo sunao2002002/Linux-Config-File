@@ -3,6 +3,15 @@ import hashlib
 import os
 import sys
 
+def usage():
+    print """
+    md5sum : a small tools for md5sum calc and check.
+    cacl:
+    md5sum file1 ...
+    check:
+    md5sum -c MD5SUM
+    """
+
 def calcmd5(filepath):
     with open(filepath, 'rb') as f:
         md5obj = hashlib.md5()
@@ -29,10 +38,12 @@ def checkmd5(md5file):
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print "Not enough parameter"
+        usage()
         sys.exit(0)
     if sys.argv[1] == '-c':
         if len(sys.argv) < 3:
             print "please specific the md5sum file"
+            usage()
             sys.exit(0)
         md5file = sys.argv[2]
         if os.path.exists(md5file):
