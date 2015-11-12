@@ -40,8 +40,8 @@ if __name__ == "__main__":
         else:
             print "file not found"
     else:
-        hashfile = sys.argv[1]
-        if  os.path.exists(hashfile):
-            print calcmd5(hashfile)
-        else:
-            print "file not found"
+        for hashfile in sys.argv[1:]:
+            if  os.path.exists(hashfile):
+                print calcmd5(hashfile), "\t", hashfile
+            else:
+                print hashfile, "Missing"
