@@ -12,12 +12,21 @@ def usage():
     md5sum -c MD5SUM
     """
 
+
 def calcmd5(filepath):
-    with open(filepath, 'rb') as f:
-        md5obj = hashlib.md5()
-        md5obj.update(f.read())
-        hash = md5obj.hexdigest()
-        return hash
+    md5obj = hashlib.md5()
+    block_size = 4096
+    try:
+        a_file = open(filepath, 'rb')
+        while True:
+            bytes = a_file.read(block_size)
+            if not bytes:
+                break
+            md5obj.update(bytes)
+        a_file.close()
+    except Exception as err:
+        print err
+    return md5obj.hexdigest()
 
 def checkmd5(md5file):
     with open(md5file, "r") as f:
