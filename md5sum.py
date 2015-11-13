@@ -53,6 +53,6 @@ if __name__ == "__main__":
     else:
         for hashfile in sys.argv[1:]:
             if  os.path.exists(hashfile):
-                print calcmd5(hashfile), "\t", hashfile
+                print calcmd5(hashfile), hashfile
             else:
                 print hashfile, "Missing"
