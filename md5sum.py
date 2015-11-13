@@ -27,6 +27,8 @@ def checkmd5(md5file):
             if len(array) >0:
                 md5value = array[0].strip()
                 filepath = array[1].strip()
+                if filepath.startswith("*"):
+                    filepath = filepath[1:]
                 if os.path.exists(filepath):
                     if calcmd5(filepath) != md5value:
                         print filepath, "Failed"
