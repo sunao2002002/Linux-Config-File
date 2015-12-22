@@ -56,7 +56,7 @@ else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
-export PATH=~/bin:$PATH
+export PATH=~/bin:~/android-ndk/:$PATH
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
@@ -92,14 +92,15 @@ alias df='df -h'
 alias cd..='cd ..'
 alias dos2unix='fromdos'
 alias cmount='mount | column -t'
+alias unmount='umount'
 alias unix2dos='todos'
 alias tailf='tail -f'
 alias hexdump='hexdump -C'
 alias cls='clear'
-alias myfgrep='find . -name .svn -prune -o -type f  | xargs grep -i -E --color -n'
-alias listmodule='find . -name .svn -prune -o -type f -name Android.mk | xargs grep -E --color -n LOCAL_MODULE[^_] -i'
-alias findmodule='find . -name .svn -prune -o -type f -name Android.mk | xargs grep -E --color -n  -i'
-alias myftouch='find . -name .svn -prune -o -type f  | xargs touch'
+alias myfgrep='find . -type f  | xargs grep -i --color -n'
+alias listmodule='find .  -type f -name Android.mk | xargs grep  --color -n LOCAL_MODULE[^_] -i'
+alias findmodule='find . -type f -name Android.mk | xargs grep  --color -n  -i'
+alias myftouch='find .  -type f  | xargs touch'
 alias findf='find . -type f -iname'
 alias findfile='find . -type f -iname'
 alias findd='find . -type d -iname'
@@ -146,6 +147,15 @@ function swapfile()
     mv "$1" $TMPFILE
     mv "$2" "$1"
     mv $TMPFILE "$2"
+}
+function backtar()
+{
+    if [[ -z "$1" ]];then
+        echo "Usage: backup filename"
+        return
+    fi
+    tar -zcf $1.tgz $1
+
 }
 function backup()
 {   
@@ -231,10 +241,31 @@ function untar(){
         echo "'$1' is not a valid file"
     fi
 }
+function mcd(){
+    mkdir -p "$1"
+    cd "$1"
+}
 function rmbigfold(){
 	mkdir /tmp/blank
 	rsync --delete-before -a -H -v --progress --stats /tmp/blank/ $1
 	rm -rvf $1
 }
+function addcompletions()
+{
+    local T dir f
+    if [ -z "${BASH_VERSION}"  ]; then
+        return
+    fi
+    dir=~/bin/bash_completion
+    if [ -d ${dir} ]; then
+        for f in `/bin/ls ${dir}/[a-z]*.bash 2>/dev/null`; do
+            echo "include $f"
+            source $f
+
+        done
+    fi
+}
+addcompletions
  export LC_ALL=en_US.UTF-8
  export LANG=en_US.UTF-8
+ export ANDROID_HOME='/home/zx8200/android-ndk'

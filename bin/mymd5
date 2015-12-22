@@ -1,0 +1,69 @@
+#!/usr/bin/python
+import hashlib
+import os
+import sys
+
+def usage():
+    print """
+    md5sum : a small tools for md5sum calc and check.
+    cacl:
+    md5sum file1 ...
+    check:
+    md5sum -c MD5SUM
+    """
+
+
+def calcmd5(filepath):
+    md5obj = hashlib.md5()
+    block_size = 4096
+    try:
+        a_file = open(filepath, 'rb')
+        while True:
+            bytes = a_file.read(block_size)
+            if not bytes:
+                break
+            md5obj.update(bytes)
+        a_file.close()
+    except Exception as err:
+        print err
+    return md5obj.hexdigest()
+
+def checkmd5(md5file):
+    with open(md5file, "r") as f:
+        lines = f.readlines()
+        for line in lines:
+            array = line.strip().split()
+            if len(array) >0:
+                md5value = array[0].strip()
+                filepath = array[1].strip()
+                if filepath.startswith("*"):
+                    filepath = filepath[1:]
+                if os.path.exists(filepath):
+                    if calcmd5(filepath) != md5value:
+                        print filepath, "Failed"
+                    else:
+                        print filepath, "OK"
+                else:
+                    print filepath, "Missing"
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print "Not enough parameter"
+        usage()
+        sys.exit(0)
+    if sys.argv[1] == '-c':
+        if len(sys.argv) < 3:
+            print "please specific the md5sum file"
+            usage()
+            sys.exit(0)
+        md5file = sys.argv[2]
+        if os.path.exists(md5file):
+            checkmd5(md5file)
+        else:
+            print "file not found"
+    else:
+        for hashfile in sys.argv[1:]:
+            if  os.path.exists(hashfile):
+                print calcmd5(hashfile), hashfile
+            else:
+                print hashfile, "Missing"

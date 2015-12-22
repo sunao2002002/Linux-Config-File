@@ -1,0 +1,2 @@
+#!/bin/sh
+/home/zx8200/bin/connect -S http://10092913:Sa192913@proxynj.zte.com.cn:80 "$@"
