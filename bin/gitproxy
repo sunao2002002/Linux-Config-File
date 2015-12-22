@@ -1,8 +1,0 @@
-#!/bin/bash 
-
-PROXY=proxymsn.zte.com.cn
-#PROXY=10.41.70.8
-PROXYPORT=80
-PROXYAUTH=10092913:Sa192913
-exec socat STDIO PROXY:$PROXY:$1:$2,proxyport=$PROXYPORT,proxyauth=$PROXYAUTH
-
