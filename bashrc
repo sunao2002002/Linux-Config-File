@@ -268,4 +268,3 @@ function addcompletions()
 addcompletions
  export LC_ALL=en_US.UTF-8
  export LANG=en_US.UTF-8
- export ANDROID_HOME='/home/zx8200/android-ndk'
