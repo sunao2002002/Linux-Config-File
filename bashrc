@@ -265,6 +265,15 @@ function addcompletions()
         done
     fi
 }
+function retry_command()
+{
+    command $@
+    while [  "$?" -ne "0" ]
+    do
+        sleep 5
+        command $@
+    done
+}
 addcompletions
  export LC_ALL=en_US.UTF-8
  export LANG=en_US.UTF-8
