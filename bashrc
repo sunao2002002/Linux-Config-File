@@ -222,15 +222,15 @@ function untar(){
     fi
     if [ -f "$1"  ]; then
         case "$1" in
-            *.tar)      tar -xvf $1   ;;
-            *.tar.gz)   tar -xvzf $1  ;;
-            *.tgz)      tar -xvzf $1  ;;
-            *.tar.bz2)  tar -xvjf $1  ;;
-            *.tbz2)     tar -xvjf $1  ;;
-            *.tar.xz)   tar -xvJf $1  ;;
-            *.txz)      tar -xvJf $1  ;;
+            *.tar)      tar -xvf $@   ;;
+            *.tar.gz)   tar -xvzf $@  ;;
+            *.tgz)      tar -xvzf $@  ;;
+            *.tar.bz2)  tar -xvjf $@  ;;
+            *.tbz2)     tar -xvjf $@  ;;
+            *.tar.xz)   tar -xvJf $@  ;;
+            *.txz)      tar -xvJf $@  ;;
             *.bz2)      bunzip2 $1   ;;
-            *.rar)      unrar $1     ;;
+            *.rar)      unrar x $1     ;;
             *.gz)       gunzip $1    ;;
             *.zip)      unzip $1     ;;
             *.Z)        uncompress $1 ;;
@@ -264,6 +264,43 @@ function addcompletions()
 
         done
     fi
+}
+function show_time()
+{
+    local start_time=$(date +"%s")
+    command "$@"
+    local ret=$?
+    local end_time=$(date +"%s")
+    local tdiff=$(($end_time-$start_time))
+    local hours=$(($tdiff / 3600 ))
+    local mins=$((($tdiff % 3600) / 60))
+    local secs=$(($tdiff % 60))
+    local ncolors=$(tput colors 2>/dev/null)
+    if [ -n "$ncolors" ] && [ $ncolors -ge 8 ]; then
+        color_failed="\e[0;31m"
+        color_success="\e[0;32m"
+        color_reset="\e[00m"
+    else
+        color_failed=""
+        color_success=""
+        color_reset=""
+    fi
+    echo
+    if [ $ret -eq 0 ] ; then
+        echo -n -e "${color_success}#### run completed successfully "
+    else
+        echo -n -e "${color_failed}#### run failed to build some targets "
+    fi
+    if [ $hours -gt 0 ] ; then
+        printf "(%02g:%02g:%02g (hh:mm:ss))" $hours $mins $secs
+    elif [ $mins -gt 0 ] ; then
+        printf "(%02g:%02g (mm:ss))" $mins $secs
+    elif [ $secs -gt 0 ] ; then
+        printf "(%s seconds)" $secs
+    fi
+    echo -e " ####${color_reset}"
+    echo
+    return $ret
 }
 function retry_command()
 {
