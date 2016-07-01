@@ -148,15 +148,6 @@ function swapfile()
     mv "$2" "$1"
     mv $TMPFILE "$2"
 }
-function backtar()
-{
-    if [[ -z "$1" ]];then
-        echo "Usage: backup filename"
-        return
-    fi
-    tar -zcf $1.tgz $1
-
-}
 function backup()
 {   
     if [[ -z "$1" ]];then
@@ -310,6 +301,10 @@ function retry_command()
         sleep 5
         command $@
     done
+}
+function backtar(){
+    local subfix=`date +%Y%m%d%H%M%S`
+    tar -zcvf $1_$subfix.tgz $1
 }
 addcompletions
  export LC_ALL=en_US.UTF-8
